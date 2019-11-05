@@ -1,6 +1,9 @@
 #!/bin/bash
 set -ve
 
+mkdir -p /etc/tunroam/network
+mkdir -p /var/log/tunroam
+
 apt install -y \
   hostapd \
   nftables \
@@ -47,10 +50,3 @@ systemctl restart hostapd
 systemctl status hostapd
 
 sysctl -w net.ipv4.ip_forward=1
-iptables-nft -A FORWARD -i wlan0 -j ACCEPT
-
-#iptables-save > /iptables.txt
-#iptables-nft-restore < /iptables.txt
-iptables-nft-save
-
-echo TODO make rules persistent

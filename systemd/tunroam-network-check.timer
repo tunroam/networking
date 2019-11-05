@@ -1,0 +1,12 @@
+# /etc/systemd/system/this.timer 
+[Unit]
+Description=tunroam-network-check.service job
+
+[Timer]
+# To add a time of your choosing here: `man systemd.time`
+OnCalendar=minutely
+Unit=tunroam-network-check.service
+
+[Install]
+WantedBy=basic.target
+

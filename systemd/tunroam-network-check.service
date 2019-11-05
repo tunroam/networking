@@ -1,0 +1,14 @@
+#/etc/systemd/system/this.service  
+
+[Unit]
+Description=Detect network changes on a SoC for the TUNroam protocol
+Wants=tunroam-network-check.timer
+
+[Service]
+Type=oneshot
+Nice=19
+ExecStart=/usr/local/bin/tunroam-network-check.sh
+
+[Install]
+WantedBy=basic.target
+

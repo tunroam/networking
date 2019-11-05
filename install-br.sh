@@ -22,6 +22,8 @@ BRIDGEMAC="D4:28:B2:05:30:53"
 ip link add name br0 type bridge #brctl addbr br0
 ip link set br0 address $BRIDGEMAC
 ip link set dev br0 up
+#how to set permanantly:
+#https://backreference.org/2010/07/28/linux-bridge-mac-addresses-and-dynamic-ports/
 
 ip link set dev eth0 master br0 #brctl addif br0 eth0
 # we now have br0 and eth0 getting a DHCP lease
@@ -40,6 +42,4 @@ grep -q '^interface' /etc/dhcpcd.conf \
   && echo ERROR detected manual configuration of DHCP \
   && exit 1
 
-#how to set permanantly:
-#https://backreference.org/2010/07/28/linux-bridge-mac-addresses-and-dynamic-ports/
 
