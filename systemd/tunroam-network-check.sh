@@ -9,13 +9,17 @@ echo "$RULES"|grep -q "$WLAN_IFACE" || ( \
 
 netstat -ulpn | grep -q freeradius || systemctl restart freeradius
 
-ip a|grep -q "192.168.123.1/24" || ip a a 192.168.123.1/24 dev "$WLAN_IFACE"
+# the following is needed if dhcpcd was missing
+#ip a|grep -q "192.168.123.1/24" || ip a a 192.168.123.1/24 dev "$WLAN_IFACE"
 
 checkNAT() {
   DEFAULTGATEWAY=`ip -4 route|grep default\ via|head -1|cut -f3 -d' '`
   if [ -z "$DEFAULTGATEWAY" ]; then
     exit
   fi
+  
+  ip -v4 route|grep -q '192.168.123.0/24 via' || ip route add 192.168.123.0/24 via "$DEFAULTGATEWAY"
+  
   if [ ! -f /var/log/tunroam/last_known_gateway ] || \
      [ "$DEFAULTGATEWAY" != "`cat /var/log/tunroam/last_known_gateway`" ]; then
     echo "`date +%F\ %T` $DEFAULTGATEWAY" >> /var/log/tunroam/gateway.log
