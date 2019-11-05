@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RULES=`iptables-nft-save`
+RULES="`iptables-nft-save`"
 
 echo "$RULES"|grep -q wlan0 || ( \
   iptables-nft -A FORWARD -i wlan0 -j ACCEPT;
