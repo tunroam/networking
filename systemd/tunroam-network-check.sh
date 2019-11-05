@@ -7,6 +7,8 @@ echo "$RULES"|grep -q "$WLAN_IFACE" || ( \
   iptables-nft -A FORWARD -i "$WLAN_IFACE" -j ACCEPT;
 )
 
+netstat -ulpn | grep -q freeradius || systemctl restart freeradius
+
 checkNAT() {
   DEFAULTGATEWAY=`ip -4 route|grep default\ via|head -1|cut -f3 -d' '`
   if [ -z "$DEFAULTGATEWAY" ]; then
