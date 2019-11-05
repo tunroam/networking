@@ -18,3 +18,4 @@ fi
 systemctl reload dnsmasq
 systemctl status dnsmasq
 
+touch /etc/dhcpcd.conf

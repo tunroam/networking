@@ -6,6 +6,7 @@ mkdir -p /var/log/tunroam
 
 apt install -y \
   hostapd \
+  dhcpcd5 \
   nftables \
   curl \
   vim

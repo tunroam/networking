@@ -1,9 +1,15 @@
 # TUNroam Networking
 
-First install the github.com/tunroam/networking
-after which you can run `./install.sh`.
+Order of installation:
 
-Conclude with either Bridge or NAT.
+- github.com/tunroam/auth-server
+- in this repo.
+  - install.sh
+  - install-[br|NAT].sh (see below)
+  - instructions in systemd folder
+
+
+Either Bridge or NAT.
 We only tested NAT, since we'll use that for the demo at UvA and Surfnet.
 
 ## TODO
