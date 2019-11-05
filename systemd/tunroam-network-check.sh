@@ -1,9 +1,10 @@
 #!/bin/bash
 
 RULES="`iptables-nft-save`"
+WLAN_IFACE="`iw dev|grep -o wlan[0-9]|head -1`"
 
-echo "$RULES"|grep -q wlan0 || ( \
-  iptables-nft -A FORWARD -i wlan0 -j ACCEPT;
+echo "$RULES"|grep -q "$WLAN_IFACE" || ( \
+  iptables-nft -A FORWARD -i "$WLAN_IFACE" -j ACCEPT;
 )
 
 checkNAT() {
@@ -17,7 +18,7 @@ checkNAT() {
     echo -n "$DEFAULTGATEWAY" > /var/log/tunroam/last_known_gateway
     cp /etc/dhcpcd.conf.orig /etc/dhcpcd.conf
 cat << EOF >> /etc/dhcpcd.conf
-interface wlan0
+interface $WLAN_IFACE
     static ip_address=192.168.123.1/24
     static routers=$DEFAULTGATEWAY
     nohook wpa_supplicant

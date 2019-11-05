@@ -12,11 +12,12 @@ apt install -y \
 
 ip link show eth0 1> /dev/null \
   || (echo 'ERROR No standard network iface names detected, process manually!' && exit 1)
+WLAN_IFACE="`iw dev|grep -o wlan[0-9]|head -1`"
 
 # see /usr/share/doc/hostapd/examples/hostapd.conf
 # or https://w1.fi/cgit/hostap/plain/hostapd/hostapd.conf
-cat << 'EOF' > /etc/hostapd/hostapd.conf
-interface=wlan0
+cat << EOF > /etc/hostapd/hostapd.conf
+interface=$WLAN_IFACE
 ssid=tunroam.org 19
 hw_mode=g
 channel=7
