@@ -7,18 +7,6 @@ WLAN_IFACE="`iw dev|grep -o wlan[0-9]|head -1`"
 
 apt install -y bridge-utils
 
-
-cat << EOF
-WARNING Did you set a strong password for SSH login?!
-BEGIN TODO MANUAL
-    A bridge has been created with the MAC address:
-    $BRIDGEMAC
-    Please assign a fixed IP address to this hardware address
-    in the router it is connected to.
-    Then set the fixed IP as a DMZ host (port forwarding).
-END TODO MANUAL
-EOF
-
 grep -q '^interface' /etc/dhcpcd.conf \
   && echo ERROR detected manual configuration of DHCP \
   && exit 1
@@ -72,3 +60,13 @@ systemctl enable systemd-networkd
 systemctl restart systemd-networkd
 systemctl status systemd-networkd
 
+cat << EOF
+WARNING Did you set a strong password for SSH login?!
+BEGIN TODO MANUAL
+    A bridge has been created with the MAC address:
+    $BRIDGEMAC
+    Please assign a fixed IP address to this hardware address
+    in the router it is connected to.
+    Then set the fixed IP as a DMZ host (port forwarding).
+END TODO MANUAL
+EOF
