@@ -15,6 +15,9 @@ ip link show eth0 1> /dev/null \
   || (echo 'ERROR No standard network iface names detected, process manually!' && exit 1)
 WLAN_IFACE="`iw dev|grep -o wlan[0-9]|head -1`"
 
+touch /etc/dhcpcd.conf
+cp /etc/dhcpcd.conf /etc/dhcpcd.conf.orig
+
 # see /usr/share/doc/hostapd/examples/hostapd.conf
 # or https://w1.fi/cgit/hostap/plain/hostapd/hostapd.conf
 cat << EOF > /etc/hostapd/hostapd.conf
@@ -42,14 +45,10 @@ acct_server_port=1813
 acct_server_shared_secret=testing123
 EOF
 
-echo "DAEMON_CONF="/etc/hostapd/hostapd.conf"" \
+echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' \
   >> /etc/default/hostapd
 
 systemctl unmask hostapd
 systemctl enable hostapd
-systemctl start hostapd
 systemctl restart hostapd
 systemctl status hostapd
-
-sysctl -w net.ipv4.ip_forward=1
-echo 'net.ipv4.ip_forward=1' >> /etc/sysctl.conf

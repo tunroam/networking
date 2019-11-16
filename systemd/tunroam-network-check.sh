@@ -42,7 +42,7 @@ EOF
 
 
 checkBridge() {
-  echo NOT yet implemented
+  echo Bridge does not need plug and play
 }
 
 
