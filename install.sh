@@ -22,6 +22,7 @@ cp /etc/dhcpcd.conf /etc/dhcpcd.conf.orig
 # or https://w1.fi/cgit/hostap/plain/hostapd/hostapd.conf
 cat << EOF > /etc/hostapd/hostapd.conf
 interface=$WLAN_IFACE
+#bridge=br0
 ssid=tunroam.org 19
 hw_mode=g
 channel=7

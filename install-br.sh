@@ -26,6 +26,7 @@ grep -q '^interface' /etc/dhcpcd.conf \
 echo "denyinterfaces eth0" >> /etc/dhcpcd.conf
 echo "denyinterfaces $WLAN_IFACE" >> /etc/dhcpcd.conf
 
+sed -i 's/#bridge=/bridge=/' /etc/hostapd/hostapd.conf
 
 # we got the addr for the bridge:
 # curl --silent http://standards-oui.ieee.org/oui.txt|grep Bridge|grep hex

@@ -9,15 +9,20 @@ Order of installation:
   - instructions in systemd folder when using NAT
 
 
-Either Bridge or NAT.
-We only tested NAT, since we'll use that for the demo at UvA and Surfnet.
+## Bridge or NAT
 
-## Status: WIP
+When the physical port eth0 is connected to only provides one DHCP lease,
+then use NAT (thus this is a safe bet for demo purposes, it always works).
+For normal setups (like home router),
+use the bridged setup to increase performance and avoid double NAT.
 
-NAT was implemented in a legacy/prototype way,
-but it worked.
 
-For the bridge setup we aim for
+### Layout
+
+NAT was implemented in a prototype way;
+quick and dirty.
+
+For the bridge setup we used
 [systemd-networkd](https://wiki.archlinux.org/index.php/Systemd-networkd)
 as suggested by
 [debian](https://www.debian.org/doc/manuals/debian-reference/ch05.en.html#_the_modern_network_configuration_without_gui).
