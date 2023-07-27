@@ -2,6 +2,7 @@
 
 Order of installation:
 
+- SoC with clean [debian](https://www.armbian.com/download/?tx_maker=xunlong) installation
 - github.com/tunroam/auth-server
 - in this repo.
   - install.sh
